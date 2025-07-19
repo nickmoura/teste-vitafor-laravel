@@ -1,0 +1,14 @@
+.no-character {
+	display: flex;
+	align-items: center;
+	background-color: #3498DB;
+	color: white;
+	padding: 1rem 2rem !important;
+	border-radius: 10px;
+	font-size: 1.25rem;
+	margin: 0;
+}
+
+.info-icon {
+	margin: 0 1rem 0 0;
+}

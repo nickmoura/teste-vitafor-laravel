@@ -1,0 +1,7 @@
+/* CSS necessário para ajustes finos na página de detalhes do personagem */
+
+@media (min-width: 768px) {
+  .details-card-button {
+    width: auto !important;
+  }
+}
