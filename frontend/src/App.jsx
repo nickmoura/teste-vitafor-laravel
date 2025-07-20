@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Navbar from './components/Navbar.jsx';
 import Home from './pages/Home.jsx/';
@@ -8,17 +8,17 @@ import CharacterDetails from './pages/CharacterDetails.jsx/';
 import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import PrivateRoute from './components/PrivateRoute.jsx'; // cria isso!
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Este useEffect vai garantir que, para usuários logados, apareça logout em vez de login e cadastro novamente.
     const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token); // true se tiver token - desta forma vai mostrar o logout
+    setIsLoggedIn(!!token);
   }, []);
 
-  const handleLogout = () => { // lógica que vai ativar o logout quando clicado 
+  const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
   };
@@ -26,19 +26,41 @@ function App() {
   return (
     <Router>
       <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-      <div className="container mt-4 px-5">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/lista" element={<Home />} />
-          <Route path="/characters" element={<Characters />} />
-          <Route path="/characters/:id" element={<CharacterDetails />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </div>
-      <ToastContainer theme="colored"
-/>
+      <Routes>
+
+        {/* Redirecionar não logado pro login */}
+        <Route path="/" element={
+          isLoggedIn ? <Navigate to="/lista" /> : <Navigate to="/login" />
+        } />
+
+        {/* Acessível sem login */}
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Rotas protegidas */}
+        <Route path="/lista" element={
+          <PrivateRoute isLoggedIn={isLoggedIn}>
+            <Home />
+          </PrivateRoute>
+        } />
+        <Route path="/characters" element={
+          <PrivateRoute isLoggedIn={isLoggedIn}>
+            <Characters />
+          </PrivateRoute>
+        } />
+        <Route path="/characters/:id" element={
+          <PrivateRoute isLoggedIn={isLoggedIn}>
+            <CharacterDetails />
+          </PrivateRoute>
+        } />
+        <Route path="/about" element={
+          <PrivateRoute isLoggedIn={isLoggedIn}>
+            <About />
+          </PrivateRoute>
+        } />
+
+      </Routes>
+      <ToastContainer theme="colored" />
     </Router>
   );
 }

@@ -1,0 +1,65 @@
+.about-main {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.my-pic-area {
+	display: flex;
+	width: 30%;
+}
+
+.my-pic {
+	width: 100%;
+	border: 5px solid blue;
+	margin: auto;
+	transition: border-color 0.4s ease;
+}
+
+.my-pic:hover {
+	border-color: rgb(172, 172, 255);
+}
+
+.about-text {
+	width: 70%;
+}
+
+p {
+	text-align: justify;
+	hyphens: auto;
+}
+
+.portfolio {
+	text-decoration: none;
+	color: inherit;
+	font-weight: bold;
+}
+
+.portfolio:hover {
+	color: rgb(64, 64, 190);
+}
+
+.portfolio:active {
+	color: purple;
+}
+
+.social-icon {
+	color: #000;
+	transition: color 0.4s ease;
+	cursor: pointer;
+}
+
+.social-icon:hover {
+	color: #aaa;
+}
+
+@media (min-width: 768px) {
+
+	.about-main {
+		flex-direction: row;
+	}
+
+	.social-area {
+		flex-direction: column;
+	}
+}

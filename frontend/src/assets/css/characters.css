@@ -1,7 +1,17 @@
+.card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
 .no-character {
 	display: flex;
 	align-items: center;
-	background-color: #3498DB;
+	justify-content: center;
+	background-color: #70b5e4;
 	color: white;
 	padding: 1rem 2rem !important;
 	border-radius: 10px;
@@ -12,3 +22,4 @@
 .info-icon {
 	margin: 0 1rem 0 0;
 }
+

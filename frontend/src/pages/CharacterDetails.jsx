@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import api from '../api';
 import { toast } from 'react-toastify';
-import '../assets/css/details.css'
 
 function CharacterDetails() {
   const { id } = useParams();
@@ -145,34 +144,46 @@ function CharacterDetails() {
   if (!character) return <p className="text-center mt-5">Carregando...</p>;
 
   return (
-    <div className="container">
-      <h1 className="mb-4 text-center">Detalhes do Personagem</h1>
-      <div className="card mx-auto shadow-sm" style={{ maxWidth: '1200px', height: '100%' }}>
-        <div className="row g-0">
-          <div className="col-12 col-md-4 d-flex align-items-stretch"
-          >
-            <img
-              src={character.image}
-              className="img-fluid rounded-start w-100 h-100"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.25rem 0 0 0.25rem' }}
-              alt={character.name}
-            />
+    <div className="container py-4">
+      <h1 className="text-center mb-4">Detalhes do Personagem</h1>
+
+      <div className="card mx-auto shadow w-100" style={{ maxWidth: '1200px' }}>
+        <div className="row g-0 d-flex flex-wrap">
+
+          {/* COLUNA DA IMAGEM */}
+          <div className="col-12 col-md-4">
+            <div className="h-100 w-100">
+              <img
+                src={character.image}
+                alt={character.name}
+                className="img-fluid rounded-start"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  maxHeight: '100%',
+                  objectFit: window.innerWidth < 768 ? 'contain' : 'cover',
+                  borderRadius: '0.25rem 0 0 0.25rem',
+                }}
+              />
+            </div>
           </div>
-          <div className="col-12 col-md-8 d-flex align-items-stretch h-100"
-          >
-            <div className="card-body d-flex flex-column justify-content-between h-100 py-4 px-5" style={{ minHeight: '480px', height: '100%', overflowY: 'auto' }}
-            >
+
+          {/* COLUNA DO CONTEÚDO */}
+          <div className="col-12 col-md-8">
+            <div className="card-body d-flex flex-column justify-content-between" style={{ minHeight: '100%', height: '100%' }}>
+
+              {/* EDIT MODE */}
               {editMode ? (
                 <>
-                  <div className="row fs-5 d-flex gap-3">
+                  <div className="row g-3 mb-4">
                     {['name', 'species', 'image', 'url'].map((field) => (
                       <div key={field} className="col-12">
-                        <label className="form-label m-0 fw-bold" htmlFor={field}>
+                        <label htmlFor={field} className="form-label fw-bold m-0">
                           {labelMap[field] || field}
                         </label>
                         <input
                           type="text"
-                          className="form-control fs-5"
+                          className="form-control"
                           name={field}
                           value={form[field]}
                           onChange={handleChange}
@@ -183,60 +194,76 @@ function CharacterDetails() {
                       </div>
                     ))}
                   </div>
-                  <div className="d-flex flex-wrap gap-2 justify-content-center">
-                    <button className="btn btn-secondary btn-lg fw-bold w-25 details-card-button px-4 py-3" onClick={handleEditToggle}>Cancelar</button>
-                    <button className="btn btn-success btn-lg fw-bold w-25 details-card-button px-4 py-3" onClick={handleUpdate}>Salvar</button>
+
+                  <div className="row g-2">
+                    <div className="col-12 col-md-6">
+                      <button className="btn btn-secondary w-100 fw-bold py-2" onClick={handleEditToggle}>
+                        Cancelar
+                      </button>
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <button className="btn btn-success w-100 fw-bold py-2" onClick={handleUpdate}>
+                        Salvar
+                      </button>
+                    </div>
                   </div>
+
                 </>
               ) : (
                 <>
-                  <h3 className="card-title m-0 fw-bold">{character.name}</h3>
-                  <div className="row text-break fs-5">
+                  <h3 className="card-title fw-bold">{character.name}</h3>
+                  <div className="row fs-6">
                     <div className="col-12 col-md-6">
-                      <p className="mb-3"><strong>Espécie:</strong> {character.species}</p>
-                      {character.gender && <p className="mb-3"><strong>Gênero:</strong> {character.gender}</p>}
-                      {character.status && <p className="mb-3"><strong>Status:</strong> {character.status}</p>}
-                      {character.origin?.name && <p className="mb-3"><strong>Origem:</strong> {character.origin.name}</p>}
-                      <p className="mb-3"><strong>ID na API:</strong> {character.id}</p>
+                      <p><strong>Espécie:</strong> {character.species}</p>
+                      {character.gender && <p><strong>Gênero:</strong> {character.gender}</p>}
+                      {character.status && <p><strong>Status:</strong> {character.status}</p>}
+                      {character.origin?.name && <p><strong>Origem:</strong> {character.origin.name}</p>}
+                      <p><strong>ID na API:</strong> {character.id}</p>
                     </div>
                     <div className="col-12 col-md-6">
-                      {character.location?.name && <p className="mb-3"><strong>Localização:</strong> {character.location.name}</p>}
-                      {character.type && <p className="mb-3"><strong>Tipo:</strong> {character.type}</p>}
-                      <p className="mb-3"><strong>Nº episódios:</strong> {character.episode?.length ?? character.episode_count ?? 'Indefinido'}</p>
-                      <p className="mb-3"><strong>Criado na API:</strong> {character.created_at_api || 'Indefinido'}</p>
-                      <p className="mb-3"><strong>Criado no banco:</strong> {character.created_at_formatted || 'Indefinido'}</p>
-                    </div>
-                    <div className="col-12 col-md-6 col-lg-4">
-
+                      {character.location?.name && <p><strong>Localização:</strong> {character.location.name}</p>}
+                      {character.type && <p><strong>Tipo:</strong> {character.type}</p>}
+                      <p><strong>Nº episódios:</strong> {character.episode?.length ?? character.episode_count}</p>
+                      <p><strong>Criado na API:</strong> {character.created_at_api || 'Indefinido'}</p>
+                      <p><strong>Criado no banco:</strong> {character.created_at_formatted || 'Indefinido'}</p>
                     </div>
                   </div>
 
-                  <div className="d-flex flex-wrap gap-2 justify-content-center">
+                  <div className="row g-2 mt-3">
                     {fromHome && isLoggedIn && (
-                      <button className="btn btn-primary btn-lg fw-bold w-50 details-card-button px-4 py-3" onClick={handleSave}>
-                        Salvar personagem
-                      </button>
+                      <div className="col-12 col-md-12 text-center">
+                        <button className="btn btn-primary w-50 fw-bold py-2" onClick={handleSave}>
+                          Salvar personagem
+                        </button>
+                      </div>
                     )}
+
                     {!fromHome && (
                       <>
-                        <button className="btn btn-warning btn-lg fw-bold px-4 py-3 w-100 details-card-button"
-                          onClick={handleEditToggle}>
-                          Editar
-                        </button>
-                        <button className="btn btn-danger btn-lg fw-bold px-4 py-3 w-100 details-card-button" onClick={handleDelete}>
-                          Excluir
-                        </button>
+                        <div className="col-12 col-md-6">
+                          <button className="btn btn-warning w-100 fw-bold py-2" onClick={handleEditToggle}>
+                            Editar
+                          </button>
+                        </div>
+                        <div className="col-12 col-md-6">
+                          <button className="btn btn-danger w-100 fw-bold py-2" onClick={handleDelete}>
+                            Excluir
+                          </button>
+                        </div>
                       </>
                     )}
                   </div>
+
                 </>
               )}
+
             </div>
           </div>
         </div>
       </div>
     </div>
   );
+
 }
 
 export default CharacterDetails;

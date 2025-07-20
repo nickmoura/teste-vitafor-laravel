@@ -27,28 +27,30 @@ function Characters() {
 
   return (
     <>
-      <h1 className='my-4 text-center'>Personagens Salvos</h1>
-      <div className="row">
-        {characters.length === 0 && <p className="w-100 no-character"> <Info className='info-icon' size={40}/>
-Nenhum personagem salvo ainda.</p>}
-        {characters.map(c => (
-          <div key={c.id} className="col-md-3 mb-3">
-            <div className="card">
-              <img src={c.image} className="card-img-top" alt={c.name} />
-              <div className="card-body d-flex gap-2 flex-column align-items-center">
-                <h5 className="card-title m-0">{c.name}</h5>
-                <p className="card-subtitle text-body-secondary mb-2">{c.species}</p>
-                <Link
-                  to={`/characters/${c.id}`}
-                  state={{ fromHome: false }}
-                  className="btn btn-primary w-75 fs-5"
-                >
-                  Detalhes
-                </Link>
+      <div className="container mt-5">
+        <h1 className='my-4 text-center'>Personagens Salvos</h1>
+        <div className="row">
+          {characters.length === 0 && <p className="no-character w-50 m-auto mt-3 fs-3"> <Info className='info-icon' size={40} />
+            Nenhum personagem salvo ainda.</p>}
+          {characters.map(c => (
+            <div key={c.id} className="col-md-3 mb-3">
+              <div className="card">
+                <img src={c.image} className="card-img-top" alt={c.name} />
+                <div className="card-body d-flex gap-2 flex-column align-items-center">
+                  <h5 className="card-title m-0">{c.name}</h5>
+                  <p className="card-subtitle text-body-secondary mb-2">{c.species}</p>
+                  <Link
+                    to={`/characters/${c.id}`}
+                    state={{ fromHome: false }}
+                    className="btn btn-primary w-75 fs-5"
+                  >
+                    Detalhes
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   );
