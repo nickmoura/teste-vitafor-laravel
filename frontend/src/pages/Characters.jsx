@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import '../assets/css/characters.css'
 import { Info } from 'lucide-react';
 
+// Este JSX retorna a página que mostra os personagens salvos
+
 function Characters() {
   const [characters, setCharacters] = useState([]);
   const toastShown = useRef(false);
@@ -19,7 +21,7 @@ function Characters() {
         }
         setCharacters(res.data);
       } catch (error) {
-        toast.error('Erro ao carregar personagens salvos');
+        toast.error(error.message || 'Erro ao carregar personagens salvos');
       }
     }
     fetchSavedCharacters();

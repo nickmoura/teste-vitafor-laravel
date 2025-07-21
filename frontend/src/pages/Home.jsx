@@ -7,6 +7,7 @@ import axios from 'axios';
 import '../assets/css/home.css'
 
 
+// Página inicial
 function Home() {
   const [characters, setCharacters] = useState([]);
 
@@ -16,7 +17,7 @@ function Home() {
         const res = await axios.get('https://rickandmortyapi.com/api/character');
         setCharacters(res.data.results);
       } catch (error) {
-        toast.error('Erro ao carregar personagens da API externa');
+        toast.error(error.message || 'Erro ao carregar personagens da API externa');
       }
     }
     fetchCharacters();

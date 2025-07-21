@@ -1,5 +1,7 @@
 <?php
 
+// Sanctum utilizado para proteger o middleware e manter o user logado com segurança entre várias requisições
+
 use Laravel\Sanctum\Sanctum;
 
 return [

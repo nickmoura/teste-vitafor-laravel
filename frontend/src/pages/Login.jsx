@@ -7,6 +7,8 @@ import '../assets/css/login.css';
 import { Eye, EyeOff } from 'lucide-react';
 import { togglePasswordInput } from '../assets/js/password.js';
 
+// Página de Login
+
 function Login({ setIsLoggedIn }) {
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -24,14 +26,14 @@ function Login({ setIsLoggedIn }) {
       toast.success('Logado com sucesso!');
       navigate('/');
     } catch (error) {
-      toast.error('Erro ao fazer login');
+      toast.error(error.message ||  'Erro ao fazer login');
     }
   };
 
   const handleTogglePassword = () => {
     togglePasswordInput('password');
     setShowPassword(prev => !prev);
-  };
+  }; // Vai trabalhar com a funcionalidade de mostrar ou ocultar a senha
 
   return (
     <main className="login-main d-flex">

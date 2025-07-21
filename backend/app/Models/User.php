@@ -1,5 +1,8 @@
 <?php
 
+// Modelo que será responsável por representar a tabela de usuários333 no BD
+
+
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;

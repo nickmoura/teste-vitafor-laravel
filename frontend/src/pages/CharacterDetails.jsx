@@ -4,6 +4,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import api from '../api';
 import { toast } from 'react-toastify';
 
+// Esta função será responsável por retornar a página específica de cada personagem
 function CharacterDetails() {
   const { id } = useParams();
   const location = useLocation();
@@ -39,6 +40,7 @@ function CharacterDetails() {
     // adicione mais se precisar
   };
 
+    // API fetch que vai 'bater' os campos daqui com os do BD
   useEffect(() => {
     async function fetchCharacter() {
       if (fromHome && characterApiData) {
@@ -88,7 +90,7 @@ function CharacterDetails() {
           });
 
         } catch (error) {
-          toast.error('Erro ao carregar personagem');
+          toast.error(error.message || 'Erro ao carregar personagem');
         }
       }
     }
@@ -127,7 +129,7 @@ function CharacterDetails() {
       setEditMode(false);
       setCharacter(form);
     } catch (error) {
-      toast.error('Erro ao atualizar personagem');
+      toast.error(error.message || 'Erro ao atualizar personagem'); // Inseri error.message para o ESlint não acusar erro sem motivo
     }
   };
 
@@ -137,7 +139,7 @@ function CharacterDetails() {
       toast.success('Personagem excluído!');
       navigate('/characters');
     } catch (error) {
-      toast.error('Erro ao excluir personagem');
+      toast.error(error.message || 'Erro ao excluir personagem');
     }
   };
 

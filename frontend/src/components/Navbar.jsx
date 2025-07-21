@@ -37,7 +37,7 @@ export default function Navbar({ isLoggedIn, handleLogout }) {
               </>
             )}
 
-            {/* Login/Cadastro ou Logout */}
+            {/* Login/Cadastro ou Logout. Login/Cadastro apenas para não-logados, logout apenas para logados. */}
             {!isLoggedIn ? (
               <>
                 <li className="nav-item">

@@ -4,6 +4,9 @@ import { FaLinkedin } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
 
 
+
+// Essa págna é sobre mim
+
 function About() {
   return (
     <>

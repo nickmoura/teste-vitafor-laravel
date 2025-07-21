@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'sanctum' => \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         ]);
 
-        // Middleware global (executado em toda requisição)
+        // Middleware global (executado em todas as requisições)
         $middleware->append([
             \App\Http\Middleware\Cors::class,
         ]);

@@ -1,64 +1,74 @@
-# Teste para desenvolvedor - Vitafor
+# Teste para desenvolvedor - Vitafor - Nickolas Moura
 
-## Tecnologias a serem utilizadas
-
--   Laravel
--   SQLite
--   Front-end com Requisições assíncronas Javascript e Bootstrap 5.
-
-## Aplicação para exibir personagens
-
-Desenvolva uma aplicação que irá consumir a API do [Rick and Morty](https://rickandmortyapi.com/) e irá apresentar a estrutura/menu abaixo:
+Esta é uma aplicação que consume a API do [Rick and Morty](https://rickandmortyapi.com/) e apresenta a seguinte estrutura de páginas:
 
 -   Home
 -   Personagens
 -   Sobre
 -   Login / Cadastro
 
-## Páginas da aplicação
+## 🚀 Tecnologias utilizadas
 
-**HOME**
+-   PHP + Laravel com Sanctum
+-   SQLite
+-   Front-end - React, fetch API e JavaScript
+-   Composer
 
-A Home deverá conter uma listagem de personagens vindos diretamente da [API](https://rickandmortyapi.com/), o layout da tela deverá ser o seguinte:
+## 📄 Sobre
 
-![HOME](./blockframe-home.png)
 
-Eles devem estar dispostos como uma lista de cards que permitem que o usuário clique e abra uma página de maiores detalhes do personagem, página de detalhes do personagem.
 
-**DETALHES DO PERSONAGEM**
+## 🔧 Instalação
+1. Clone o repo 
+  ```bash
+   git clone https://github.com/nickmoura/teste-vitafor-laravel.git
+   cd teste-vitafor-laravel
+   ```
 
-Esta página deverá seguir o seguinte layout:
+2. Instale dependências
 
-![Detalhe do Personagem](./blockframe-detalhes-personagem.png)
+  ```bash
+  cd backend
+composer install
+   ```
 
-O botão do canto inferior direito deve permitir que o usuário salve esse personagem à um banco de dados local, as informações que deverão ser salvas são:
 
-    { name, species, image, url, created_at, updated_at }
 
-Caso essa tela tenha sido aberta vindo da HOME, o botão deverá estar visível e as informações exibidas serão as vindas da API, caso ela tenha sido aberta vindo da página de personagens o botão não ficará disponível e as informações à serem exibidas serão as que estão salvas no banco de dados local. As informações que serão exibidas vindas da API são:
+3. Copie o .env e gere a chave
 
-    { name, species, gender, location, image, url }
+  ```bash
+cp .env.example .env
+php artisan key:generate
+   ```
 
-Caso o personagem já esteja salvo no banco de dados local, esta tela deverá permitir que o usuário exclua o registro e edite as informações.
+4. Configure o .env com seu banco (no meu caso, SQLite). Um exemplo básico pra SQLite no .env:
 
-**PERSONAGENS**
+  ```bash
+DB_CONNECTION=sqlite
+DB_DATABASE=/caminho/absoluto/ao/banco.sqlite
+   ```
 
-Está tela deverá ser similar à HOME com diferença de que apenas irá exibir os personagens que já estão salvos no banco de dados local. Também deverá permitir a visualização de detalhes ao clicar no personagem, direcionando assim para a tela de DETALHES DO PERSONAGEM.
+5. Rode as migrações. Elas garantem que as tabelas do banco serão criadas ou atualizadas.
 
-![PERSONAGENS](./blockframe-personagens.png)
+  ```bash
+php artisan migrate
+php artisan db:seed  # caso haja seeders
+  ```
 
-**SOBRE**
+6. Rodar back:
 
-Está deverá ser uma página livre, onde você irá apresentar um mini currículo seu. Aqui você irá se apresentar, por links para sites que você desenvolveu, projetos e tudo que você achar interessante nos mostrar.
+  ```bash
+  php artisan serve
+  ```
+7. Rodar front após todas as integrações (⚠️ abrir outra aba de terminal e não fechar o terminal que está rodando o back):
 
-**LOGIN / CADASTRO**
+  ```bash
+  cd ..
+  cd frontend
+  ```
+8. Instalar as dependências do frontend
 
-O usuário deverá poder se cadastrar e logar com o cadastro realizado. O usuário só poderá salvar um personagem caso ele esteja logado no sistema, caso não esteja e clique no botão para salvar o personagem, ele deve ser direcionado para a tela de LOGIN / CADASTRO.
-
-### Tela de login
-
-![LOGIN](./blockframe-login.png)
-
-### Tela de cadastro
-
-![LOGIN](./blockframe-cadastro.png)
+  ```bash
+  npm i / npm install
+  npm i bootstrap react-toastify react-icons lucide-react react-router-dom
+  ```

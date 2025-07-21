@@ -17,7 +17,7 @@ class CharacterController extends Controller
     {
 $character = Character::findOrFail($id);
 
-    // Formata as datas pro português BR bonitão
+    // Formata as datas pro nosso formato
     $created_at_formatted = Carbon::parse($character->created_at)
         ->locale('pt_BR')
         ->isoFormat('D [de] MMMM [de] YYYY'); // Ex: 1 de Janeiro de 2025
@@ -31,8 +31,8 @@ $character = Character::findOrFail($id);
 
     // Adiciona os campos formatados no objeto character (ou cria um array de resposta)
     $response = $character->toArray();
-    $response['created_at_formatted'] = $created_at_formatted;
-    $response['created_at_api_formatted'] = $created_at_api_formatted;
+    $response['created_at_formatted'] = $created_at_formatted; // Representa quando foi criado no banco
+    $response['created_at_api_formatted'] = $created_at_api_formatted; // Representa quando foi criado na API de origem
 
     return response()->json($response);    }
 

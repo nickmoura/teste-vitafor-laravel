@@ -18,31 +18,31 @@ function Register() {
   const navigate = useNavigate();
 
   const handleChange = e =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value }); 
 
-  const handleSubmit = async e => {
+  const handleSubmit = async e => { // Confere senha e confirmação de senha
     e.preventDefault();
     if (form.password !== form.password_confirmation) {
       toast.error('As senhas não conferem');
-      return;
+      return; 
     }
     try {
-      await api.post('/register', form);
+      await api.post('/register', form); // Valida que o cadatro deu certo
       toast.success('Cadastro realizado! Faça login.');
       navigate('/login');
     } catch (error) {
-      toast.error('Erro ao cadastrar');
+      toast.error(error.message || 'Erro ao cadastrar');
     }
   };
 
   const togglePassword = () => {
     togglePasswordInput('password');
-    setShowPassword(prev => !prev);
+    setShowPassword(prev => !prev); // Vai trabalhar com a funcionalidade de mostrar ou ocultar a senha
   };
 
   const toggleConfirmPassword = () => {
     togglePasswordInput('password_confirmation');
-    setShowConfirmPassword(prev => !prev);
+    setShowConfirmPassword(prev => !prev); // Vai trabalhar com a funcionalidade de mostrar ou ocultar a confirmação de senha 
   };
 
   return (
